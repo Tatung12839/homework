@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+namespace homework1._2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var reader = new StreamReader(@"D:\home1.2.csv");
+            var Sku = new List<string>();
+            var Name = new List<string>();
+            var price = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+                Sku.Add(values[0]);
+                Name.Add(values[1]);
+                price.Add(values[2]);
+            }
+            var listSku = Sku.ToArray();
+            var listName = Name.ToArray();
+            var listprice = price.ToArray();
+            double total = 0;
+            int running = 0;
+            int a= 1;
+            ArrayList item_list = new ArrayList();
+            do {
+                Console.WriteLine("Please input a product key:");
+                string id = Console.ReadLine();
+                for (int i = 0; i < listSku.Length; i++)
+                {
+                    if (id == listSku[i])
+                    {
+                        running++;
+                        string value = running + "." + listName[i] + listprice[i];
+                        item_list.Add(value);
+                        total += Int32.Parse(listprice[i]);
+                    }
+                }
+                Console.WriteLine("Products in your cart are");
+                foreach (var m in item_list) {
+                    Console.WriteLine(m.ToString());
+                    
+                }
+                Console.WriteLine("----");
+                Console.WriteLine("Total amount:" + total + " baht");
+            } while (a == 1);
+        }
+     }
+ }
